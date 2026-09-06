@@ -1,5 +1,5 @@
 #include "text_gl.hpp"
-#include "render.hpp"
+#include "render_opengl.hpp"
 #include <cstdint>
 
 static constexpr float nominalFontSize = 33.3f;
