@@ -60,7 +60,7 @@ void SpeechManagerGL2D::render(int offsetX, int offsetY) {
             // Position speech next to top corners
             int desiredBottomY = spriteTop - static_cast<int>(30 * scale);
             int textX;
-            int textY = desiredBottomY; // Will be adjusted in render() to account for height addition
+            int textY = desiredBottomY - textHeight;
             int screenCenter = screenWidth / 2;
 
             if (spriteCenterX < screenCenter) {
@@ -71,12 +71,12 @@ void SpeechManagerGL2D::render(int offsetX, int offsetY) {
 
             // ensure text stays within screen bounds
             textX = std::max(0, std::min(textX, screenWidth - textWidth));
-            textY = std::max(textHeight, textY);
+            textY = std::max(0, textY);
 
             // render basic speech bubble behind text (simple rects due to performance)
             int bubblePadding = static_cast<int>(8 * scale);
             int bubbleX = textX - bubblePadding;
-            int bubbleY = textY - textHeight - bubblePadding;
+            int bubbleY = textY - bubblePadding;
             int bubbleWidth = textWidth + (bubblePadding * 2);
             int bubbleHeight = textHeight + (bubblePadding * 2);
 

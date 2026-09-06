@@ -44,8 +44,6 @@ int windowHeight = 360;
 #endif
 
 bool Render::Init() {
-    TTF_Init();
-
     globalWindow = new WindowSDL1();
     if (!globalWindow->init(windowWidth, windowHeight, "Scratch Everywhere!")) {
         delete globalWindow;
