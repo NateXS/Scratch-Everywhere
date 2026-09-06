@@ -157,9 +157,9 @@ void TextObjectGLCore::render(int xPos, int yPos) {
             float qy1 = lineY + q.y1 * glyphScale;
 
             verts.insert(verts.end(), {qx0, qy0, q.s0, q.t0,
-                                        qx1, qy0, q.s1, q.t0,
-                                        qx1, qy1, q.s1, q.t1,
-                                        qx0, qy1, q.s0, q.t1});
+                                       qx1, qy0, q.s1, q.t0,
+                                       qx1, qy1, q.s1, q.t1,
+                                       qx0, qy1, q.s0, q.t1});
             indices.insert(indices.end(), {vi, vi + 1, vi + 2, vi + 2, vi + 3, vi});
             vi += 4;
         }
