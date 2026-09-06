@@ -43,11 +43,6 @@ char nickname[0x21];
 #include <ogc/system.h>
 #endif
 
-#ifdef __PS4__
-#include <orbis/Sysmodule.h>
-#include <orbis/libkernel.h>
-#endif
-
 #ifdef GAMECUBE
 #include <ogc/consol.h>
 #include <ogc/exi.h>
@@ -81,12 +76,6 @@ bool Render::Init() {
     int windowWidth = 1280;
     int windowHeight = 720;
 
-    // Freetype has to be initialized before SDL2_ttf
-    int rc = sceSysmoduleLoadModule(ORBIS_SYSMODULE_FREETYPE_OL);
-    if (rc != ORBIS_OK) {
-        Log::logCritical("Failed to init freetype.", true);
-        return false;
-    }
 #elif defined(WEBOS)
     // SDL has to be initialized before window creation on webOS
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS) < 0) {
@@ -107,8 +96,6 @@ bool Render::Init() {
     int windowWidth = 480;
     int windowHeight = 360;
 #endif
-
-    TTF_Init();
 
     globalWindow = new WindowSDL2();
     if (!globalWindow->init(windowWidth, windowHeight, "Scratch Everywhere!")) {

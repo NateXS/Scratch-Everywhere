@@ -3,7 +3,6 @@
 #include "text_gl.hpp"
 #include <log.hpp>
 #include <os.hpp>
-#include <stb_truetype.h>
 
 SpeechTextObjectGL::SpeechTextObjectGL(const std::string &text, int maxWidth)
     : TextObjectGL(text, 0, 0, "gfx/ingame/fonts/NotoSans-Medium"), SpeechText(text, maxWidth) {
@@ -16,35 +15,7 @@ SpeechTextObjectGL::~SpeechTextObjectGL() {
 }
 
 float SpeechTextObjectGL::measureTextWidth(const std::string &text) {
-    if (!font) return 0.0f;
-
-    std::vector<std::string> lines;
-    std::string currentLine;
-    for (char c : text) {
-        if (c == '\n') {
-            lines.push_back(currentLine);
-            currentLine.clear();
-        } else {
-            currentLine += c;
-        }
-    }
-    lines.push_back(currentLine);
-
-    float maxWidth = 0.0f;
-    for (const auto &line : lines) {
-        float x = 0, y = 0;
-        for (unsigned char c : line) {
-            if (c < font->firstChar || c >= font->firstChar + font->numChars) {
-                c = 'x';
-            }
-
-            stbtt_aligned_quad q;
-            stbtt_GetBakedQuad(font->charData, font->atlasWidth, font->atlasHeight, c - font->firstChar, &x, &y, &q, 1);
-        }
-        if (x > maxWidth) maxWidth = x;
-    }
-
-    return maxWidth;
+    return getStringSize(text)[0];
 }
 
 void SpeechTextObjectGL::platformSetText(const std::string &text) {

@@ -2,7 +2,6 @@
 #include "text_gl2d.hpp"
 #include <speech_text.hpp>
 #include <string>
-#include <vector>
 
 class SpeechTextObjectGL2D : public TextObjectGL2D, public SpeechText {
   private:
@@ -14,6 +13,4 @@ class SpeechTextObjectGL2D : public TextObjectGL2D, public SpeechText {
     ~SpeechTextObjectGL2D() override = default;
 
     void setText(std::string txt) override;
-    void render(int xPos, int yPos) override;
-    std::vector<float> getSize() override;
 };

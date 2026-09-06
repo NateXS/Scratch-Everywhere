@@ -54,7 +54,7 @@ void SpeechManagerSDL3::render(int offsetX, int offsetY) {
 
             // determine horizontal positioning based on sprite's side of screen
             SpeechTextObjectSDL3 *speechObj = static_cast<SpeechTextObjectSDL3 *>(obj.get());
-            speechObj->setScale(static_cast<float>(scale));
+            speechObj->setScale(static_cast<float>(scale) * (16.0f / 30.0f));
 
             auto textSize = speechObj->getSize();
             int textWidth = static_cast<int>(textSize[0]);
