@@ -705,16 +705,22 @@ void Scratch::loadCurrentCostumeImage(Sprite *sprite) {
     Costume &costume = sprite->costumes[sprite->currentCostume];
     const std::string &costumeName = costume.fullName;
 
+    const int screenWidth = Render::getWidth();
+    const int screenHeight = Render::renderMode == Render::BOTH_SCREENS ? 480 : Render::getHeight();
+
     auto it = costumeImages.find(costumeName);
     if (it != costumeImages.end()) {
+        float cachedScale = (sprite->size / 100);
+        cachedScale *= std::min(static_cast<float>(screenWidth) / Scratch::projectWidth, static_cast<float>(screenHeight) / Scratch::projectHeight);
+        auto potentialError = it->second->resizeSVG(cachedScale);
+        if (!potentialError.has_value()) Log::logWarning("Error resizing SVG: " + costume.id);
+
         sprite->spriteWidth = it->second->getWidth();
         sprite->spriteHeight = it->second->getHeight();
         return;
     }
 
     std::shared_ptr<Image> image;
-    const int screenWidth = Render::getWidth();
-    const int screenHeight = Render::renderMode == Render::BOTH_SCREENS ? 480 : Render::getHeight();
 
     auto onErr = [&](std::string error) -> bool {
         static std::set<std::string> failedImages;
